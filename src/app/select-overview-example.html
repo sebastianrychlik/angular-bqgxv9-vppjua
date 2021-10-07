@@ -1,0 +1,56 @@
+<mat-form-field>
+  <mat-select [formControl]="carSelectControl" required>
+    <mat-option
+      *ngFor="let item of carsObj; let idx = index"
+      [value]="{item: item, idx: idx}"
+    >
+      {{item.name}} {{item.owner}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+{{carSelectControl.values}}
+
+<form [formGroup]="form" novalidate>
+  <mat-form-field>
+    <mat-label>Name:</mat-label>
+    <input
+      matInput
+      class="form-control"
+      [formControl]="name"
+      [value]="carSelectControl.value?.item.name"
+    />
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Color:</mat-label>
+    <input
+      matInput
+      class="form-control"
+      [formControl]="color"
+      [value]="carSelectControl.value?.item.color"
+    />
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Owner:</mat-label>
+    <input
+      matInput
+      class="form-control"
+      [formControl]="owner"
+      [value]="carSelectControl.value?.item.owner"
+    />
+  </mat-form-field>
+  <div class="login-button">
+    <button
+      id="login.login-btn"
+      class="btn"
+      mat-raised-button
+      type="submit"
+      [disabled]="!form.valid"
+      (click)="update(carSelectControl.value?.idx)"
+    >
+      Login
+    </button>
+  </div>
+</form>
